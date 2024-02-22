@@ -31,13 +31,13 @@ python scripts/process.py
 
 ## Data 
 
-Data collected from https://stat.gov.kz/ru/industries/labor-and-income
+Data collected from https://stat.gov.kz/ru/industries/labor-and-income/stat-wags/publications/57024/
 
 We extracted the data from these sources and put it in the acrhive folder as quarters.xlsx .
 
 We processed the original data to bring them back to normal, and extracted several aggregated datasets from them into the Data folder:
 
-* `Data/quarters.csv` - contains 4 quarters information of 2022 year 
+* `Data/archive/pg16 optRK2022.xlsx` - contains 4 quarters information of 2022 year 
 * `Data/datapackage.json` - contains all the key information about our dataset
 
 ## Scripts

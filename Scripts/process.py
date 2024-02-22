@@ -2,8 +2,8 @@ import openpyxl
 import csv
 import os
 
-def converter(input_excel_file, output_csv_file):
 
+def converter(input_excel_file, output_csv_file):
     wb = openpyxl.load_workbook(input_excel_file)
     sheet = wb.active
 
@@ -15,32 +15,52 @@ def converter(input_excel_file, output_csv_file):
 
     print(f"Conversion complete! check '{output_csv_file}' ")
 
-input_excel_file = 'archive/quarters.xlsx'
-output_csv_file = 'data/quarters.csv'
-converter(input_excel_file, output_csv_file)
 
-def remove_null_rows_and_columns(input_csv_file, output_csv_file):
-    with open(input_csv_file, 'r') as fin, open(output_csv_file, 'w', newline='') as fout:
-        csv_reader = csv.reader(fin)
-        csv_writer = csv.writer(fout)
+input_excel_file = 'archive/pg16 optRK2022.xlsx'
+first_out = 'data/avg_salary.csv'
+converter(input_excel_file, first_out)
 
-        # Transpose the matrix (swap rows with columns) to process columns as rows
-        transposed_rows = zip(*csv_reader)
 
-        # Only write columns with non-null values
-        non_null_columns = [column for column in transposed_rows if any(column)]
-        transposed_non_null_rows = zip(*non_null_columns)
+def renamer(input_file, output_file):
+    column_mapping = {
+        'Всего персонала': 'avg_salary',
+        'руководители и государственные служащие': 'managers_&_civil_servants',
+        'специалисты-профессионалы': 'qualified',
+        'специалисты-техники и иной вспомогательный профессиональный персонал': 'tech_personnel',
+        'служащие в области администрирования': 'admin_emplyees',
+        'работники сферы услуг и продаж': 'service_and_sales',
+        'фермеры и рабочие сельского и лесного хозяйства, рыбоводства и рыболовства': 'agriculture',
+        'рабочие промышленности, строительства, транспорта и других родственных занятий': 'transport',
+        'операторы производственного оборудования, сборщики и водители': 'unqualified',
+        'неквалифицированные рабочие': 'not_members_of_other_groups',
+        'работники, не входящие в другие группы ': 'not_members_of_other_groups'
+    }
 
-        for row in transposed_non_null_rows:
-            if any(row):
-                csv_writer.writerow(row)
+    with open(input_file, 'r', encoding='utf-8') as infile, open(output_file, 'w', encoding='utf-8', newline='') as outfile:
+        reader = csv.reader(infile)
+        writer = csv.writer(outfile)
 
-    print(f"Null rows and columns removed from '{input_csv_file}' and saved to '{output_csv_file}'.")
+        header = next(reader)
+        new_header = [column_mapping.get(col, col) for col in header]
+        writer.writerow(new_header)
 
-# Example usage for removing null rows and columns
-input_csv_file = 'data/quarters.csv'
-output_csv_file = 'data/quarters_nn.csv'
-remove_null_rows_and_columns(input_csv_file, output_csv_file)
+        for row in reader:
+            writer.writerow(row)
+
+
+def text_remover(input_file, output_file):
+    with open(input_file, 'r', encoding='utf-8') as infile, open(output_file, 'w', encoding='utf-8', newline='') as outfile:
+        # Flag to skip lines
+        skip_line = False
+
+        for line in infile:
+            if "16. Среднемесячная заработная" in line or "тенге" in line:
+                skip_line = True
+                continue  # Skip this line
+            if not skip_line:
+                outfile.write(line)
+            skip_line = False
+
 
 def delete_file(file_path):
     try:
@@ -51,6 +71,8 @@ def delete_file(file_path):
     except Exception as e:
         print(f"Error deleting file '{file_path}': {e}")
 
-# Example usage
-file_to_delete = 'data/quarters.csv'
-delete_file(file_to_delete)
+
+second_out = 'data/avg_salary_.csv'
+renamer(first_out, second_out)
+delete_file(first_out)
+
