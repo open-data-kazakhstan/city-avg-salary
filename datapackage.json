@@ -1,3 +1,77 @@
 {
-    "profile": "data-package"
+    "profile": "data-package",
+    "resources": [
+        {
+            "path": "data/avg_salary_.csv",
+            "profile": "data-resource",
+            "name": "avg_salary_",
+            "format": "csv",
+            "mediatype": "text/csv",
+            "encoding": "utf-8",
+            "schema": {
+                "fields": [
+                    {
+                        "name": "regions",
+                        "type": "string",
+                        "format": "default"
+                    },
+                    {
+                        "name": "avg_salary",
+                        "type": "integer",
+                        "format": "default"
+                    },
+                    {
+                        "name": "managers_&_civil_servants",
+                        "type": "integer",
+                        "format": "default"
+                    },
+                    {
+                        "name": "qualified",
+                        "type": "integer",
+                        "format": "default"
+                    },
+                    {
+                        "name": "tech_personnel",
+                        "type": "integer",
+                        "format": "default"
+                    },
+                    {
+                        "name": "admin_emplyees",
+                        "type": "integer",
+                        "format": "default"
+                    },
+                    {
+                        "name": "service_and_sales",
+                        "type": "integer",
+                        "format": "default"
+                    },
+                    {
+                        "name": "agriculture",
+                        "type": "integer",
+                        "format": "default"
+                    },
+                    {
+                        "name": "transport",
+                        "type": "integer",
+                        "format": "default"
+                    },
+                    {
+                        "name": "assemblers_and_drivers",
+                        "type": "integer",
+                        "format": "default"
+                    },
+                    {
+                        "name": "unqualified",
+                        "type": "integer",
+                        "format": "default"
+                    },
+                    {
+                        "name": "not_members_of_other_groups",
+                        "type": "integer",
+                        "format": "default"
+                    }
+                ]
+            }
+        }
+    ]
 }
