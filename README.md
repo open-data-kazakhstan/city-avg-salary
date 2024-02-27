@@ -37,8 +37,8 @@ We extracted the data from these sources and put it in the acrhive folder as qua
 
 We processed the original data to bring them back to normal, and extracted several aggregated datasets from them into the Data folder:
 
-* `Data/archive/pg16 optRK2022.xlsx` - contains 4 quarters information of 2022 year 
-* `Data/datapackage.json` - contains all the key information about our dataset
+* `archive/pg16 optRK2022.xlsx` - contains information of 2022 year 
+* `datapackage.json` - contains all the key information about our dataset
 
 ## Scripts
 
