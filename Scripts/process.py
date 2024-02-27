@@ -74,84 +74,11 @@ def delete_file(file_path):
         print(f"Error deleting file '{file_path}': {e}")
 
 
-def create_datapackage(data_file, metadata_file='datapackage.json'):
-    package = Package()
-
-    resource = package.add_resource({"path": "data/avg_salary_.csv",
-            "profile": "data-resource",
-            "name": "avg_salary_",
-            "format": "csv",
-            "mediatype": "text/csv",
-            "encoding": "utf-8",
-            "schema": {
-                "fields":[
-            {
-                "name": "regions",
-                "type": "string",
-                "format": "default"
-            },
-                    {
-                "name": "avg_salary",
-                "type": "integer",
-                "format": "default"
-            },
-                    {
-                "name": "managers_&_civil_servants",
-                "type": "integer",
-                "format": "default"
-            },
-                    {
-                "name": "qualified",
-                "type": "integer",
-                "format": "default"
-            },
-                    {
-                "name": "tech_personnel",
-                "type": "integer",
-                "format": "default"
-            },
-                    {
-                "name": "admin_emplyees",
-                "type": "integer",
-                "format": "default"
-            },
-                    {
-                "name": "service_and_sales",
-                "type": "integer",
-                "format": "default"
-            },
-                    {
-                "name": "agriculture",
-                "type": "integer",
-                "format": "default"
-            },
-                    {
-                "name": "transport",
-                "type": "integer",
-                "format": "default"
-            },
-                    {
-                "name": "assemblers_and_drivers",
-                "type": "integer",
-                "format": "default"
-            },{
-                "name": "unqualified",
-                "type": "integer",
-                "format": "default"
-            },{
-                "name": "not_members_of_other_groups",
-                "type": "integer",
-                "format": "default"
-            }
-                ]}})
-
-    resource.infer()
-
-    package.save(metadata_file)
-    print(f"Datapackage created! Check '{metadata_file}' ")
-
-
 second_out = 'data/avg_salary_.csv'
 renamer(first_out, second_out)
 delete_file(first_out)
-create_datapackage(second_out)
+
+package = Package()
+package.infer(r"data\avg_salary_.csv")
+package.commit()
+package.save(r"datapackage.json")
