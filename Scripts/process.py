@@ -78,7 +78,10 @@ second_out = 'data/avg_salary_.csv'
 renamer(first_out, second_out)
 delete_file(first_out)
 
+#datapackege
+
 package = Package()
 package.infer(r"data\avg_salary_.csv")
 package.commit()
 package.save(r"datapackage.json")
+
